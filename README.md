@@ -4,7 +4,7 @@
 
 1. Crie uma conta na AWS (Conta root);
 2. Crie uma conta com permissão de `administrador` para ser a conta usada para projeto;
-3. Crie um servidor PostgreSQL usando o Amazon RDS;
+3. Crie um servidor PostgreSQL **na versão 13** usando o Amazon RDS;
 4. Clique no Security Groupo e libere o acesso a porta 5432 vindo do seu ip público;
 
 
