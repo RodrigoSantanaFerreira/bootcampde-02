@@ -32,3 +32,61 @@ AWS_SECRET_ACCESS_KEY=mwXXs8NjLwI83fnxrZ7rm4zsQHEftY3adfafd
 
 **Importante**:
 - Interrompa o banco de dados RDS.
+
+
+- DMS Setup
+
+1. Crie uma instância de replicação.
+2. Crie os endpoints target e source.
+3. Use o código abaixo para criar a police/role para o endpoint target no s3.
+
+- https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.S3.html
+
+```console
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:DeleteObject",
+                "s3:PutObjectTagging"
+            ],
+            "Resource": [
+                "arn:aws:s3:::raw-bootcampde-872226808963/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::raw-bootcampde-872226808963"
+            ]
+        }
+    ]
+}
+```
+5. Adicione a opção `AddColumName` no endpoint target.
+6. Crie uma task para iniciar o DMS.
+
+
+## Setup EMR
+
+1. Libere o acesso na porta 22. Para isso clique em `EC2 security group` clique no security group e libere a porta 22 para o IP.
+
+Acesso via ssh com Putty:
+
+*   1. Download PuTTY.exe to your computer from: https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html 
+    2. Start PuTTY.
+    3. In the Category list, choose Session.
+    4. In the Host Name field, enter hadoop@ec2-52-23-204-207.compute-1.amazonaws.com
+    5. In the Category list, expand Connection > SSH and then choose Auth.
+    6. For private key file for authentication, choose Browse and select the private key file (key-boot02.ppk) that you used to launch the cluster.
+    7. Select Open.
+    8. Select Yes to dismiss the security alert.
+*
+
+Tipo de cluster `m4.large`
