@@ -39,8 +39,7 @@ AWS_SECRET_ACCESS_KEY=mwXXs8NjLwI83fnxrZ7rm4zsQHEftY3adfafd
 1. Crie uma instância de replicação.
 2. Crie os endpoints target e source.
 3. Use o código abaixo para criar a police/role para o endpoint target no s3.
-
-- https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.S3.html
+4. Documentação do s3 como target endpoint: https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.S3.html
 
 ```console
 {
@@ -89,4 +88,26 @@ Acesso via ssh com Putty:
     8. Select Yes to dismiss the security alert.
 *
 
-Tipo de cluster `m4.large`
+2. Copie a aplicação para o servidor do Amazon EMR usando o WinScp (Windows) ou o scp (linux), para linux segue um exemplo:
+
+```console
+scp -i ~/Downloads/pair-bootcamp.pem job-spark-app-emr-redshift.py hadoop@ec2-54-90-3-194.compute-1.amazonaws.com:/home/hadoop/
+```
+
+3. Para executar o cluster Spark use o comando abaixo:
+
+```console
+spark-submit --packages io.delta:delta-core_2.12:2.0.0 --conf "spark.sql.extensions=io.delta.sql.DeltaSparkSessionExtension" --conf "spark.sql.catalog.spark_catalog=org.apache.spark.sql.delta.catalog.DeltaCatalog" app-spark-processing.py
+```
+
+## Crawlers
+
+- Usar os data catalog com o caminho o URI do objeto: `s3://teste-872226808963/orders/`
+- *Sempre usar a barra no final para informar o data store.*
+- Usar Natives tables
+
+Athena
+- **Importante**: Alterar o engine para usar athena 3.0 (tabelas delta)
+- Utilize o arquivo `querys.sql` para consultar as tabelas diretamente no Athena.
+
+
