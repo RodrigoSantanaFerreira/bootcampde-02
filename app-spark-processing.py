@@ -37,6 +37,7 @@ def write_processed(bucket, path, data_format, mode):
     try:
         df.write.format(data_format)\
             .mode(mode)\
+            .option("mergeSchema", "true")\
             .save(f"{bucket}/{path}")
         print (f"Dados escritos na processed com sucesso!")
         return 0

@@ -111,3 +111,89 @@ Athena
 - Utilize o arquivo `querys.sql` para consultar as tabelas diretamente no Athena.
 
 
+## Delta tables
+
+ - Enforcement Schema
+ ```
+ ALTER TABLE public.customers ADD sexo varchar NULL;
+ ALTER TABLE public.orders ADD setor varchar NULL;
+ ALTER TABLE public.products ADD estoque_id varchar NULL;
+ ```
+
+- Para trabalhar com alteração de schemas em tabelas delta use:
+- *mergeSchema* para atualizações em tabelas.
+- *overwriteSchema* para sobrescrever todo o schema de uma tabela.
+
+```console
+.option("mergeSchema", "true")\
+.option("overwriteSchema", "true")\
+```
+
+## Terraform
+
+- Instale o aplicativo aws-cli
+1. Faça o download aqui conforme o seu sistema operacional: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+2. Se estiver usando Windows instale com o seguinte comando:
+
+```console
+msiexec.exe /i https://awscli.amazonaws.com/AWSCLIV2.msi
+```
+3. Feche o VSCode e abra novamente para o terminal encontrar o `aws` app no terminal.
+
+4. abra o terminal e digite:
+aws configure
+
+5. entre com as credenciais, exemplo:
+*ACCESS_KEY: AKIA4WFGE4SBSIJOBTdd
+SECRET_KEY: 1qNX6PCP+g3RzjFank+nRKnLiIDMkYQfQMDcMdfx*
+
+6. Para validar que as credenciais da AWS deram certo execute o comando:
+aws s3 ls
+
+7. Deve listar os buckets da conta.
+
+## Terraform - Infraestrutura como Código
+
+0. Antes de fazer o setup do terraform crie um bucket para ser nosso bucket de backend.
+
+1. Após criar o bucket, edite o arquivo *backend.tf* informando o nome do bucket criado. Exemplo:
+*
+terraform {
+  backend "s3" {
+    # Edit the bucket name and region
+    bucket         = "stack-terraform-backend-872226808963"
+    key            = "global/s3/terraform.tfstate"
+    region         = "us-east-1"
+  }
+}*
+
+## Instalando o Terraform
+
+1. Faça o download aqui: https://developer.hashicorp.com/terraform/downloads
+
+2. extraia o binário do terraform dentro da pasta "terraform".
+
+3. Execute o comando para inicializar o terraform e fazer o setup do bucket para o backend
+
+```console
+terraform init
+```
+
+4. Execute o comando abaixo para planejar os recursos a serem criados:
+
+```console
+terraform plan
+```
+
+5. Execute o comando abaixo para fazer deploy de todos os recursos:
+
+```console
+terraform apply
+```
+
+6. Execute o comando abaixo para fazer remover toda infraestrutura criada:
+
+```console
+terraform destroy
+```
+
