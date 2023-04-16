@@ -106,10 +106,56 @@ spark-submit --packages io.delta:delta-core_2.12:2.0.0 --conf "spark.sql.extensi
 - *Sempre usar a barra no final para informar o data store.*
 - Usar Natives tables
 
-Athena
+## Athena
 - **Importante**: Alterar o engine para usar athena 3.0 (tabelas delta)
 - Utilize o arquivo `querys.sql` para consultar as tabelas diretamente no Athena.
 
+### Setup Athena + Power BI
+
+Configuração do DSN
+1 - Baixar o drive ODBC no site: Conectar-se ao Amazon Athena com ODBC - Amazon Athena
+
+![Alt text](athena/Site%20da%20aws%20para%20baixar%20drive.PNG)
+
+1.1 - Escolha o drive conforme o sitema operacional:
+
+![Alt text](athena/Baixar%20drive%20de%20acordo%20com%20o%20SO.PNG)
+
+2 – Instalar o drive baixado.
+
+![Alt text](athena/Instala%C3%A7%C3%A3o%20do%20drive.PNG)
+
+3 – No Windows pesquise "Odbc" no menu iniciar, depois clique em em Fonte de dados ODBC > DSN de sistema > Adicionar
+
+![Alt text](athena/criando%20uma%20nova%20fonte%20de%20dados.PNG)
+
+4 – Clique em *DNS do Sistema*, depois escolha o Simba Athena ODBC drive
+
+![Alt text](athena/Adicionando%20um%20novo%20DSN.PNG)
+
+5 – Configurar o Simba com os dados solicitados
+
+![Alt text](athena/configurando%20o%20dsn.PNG)
+
+6 – Configurar as opções de autenticação
+
+![Alt text](athena/op%C3%A7%C3%B5es%20de%20autentica%C3%A7%C3%A3o.PNG)
+
+Obtendo dados do Athena no Power BI
+
+1 – No Power BI, em obter dados, selecionar o conector ODBC
+
+![Alt text](athena/escolhendo%20o%20conector%20ODBC.PNG)
+
+2 – Escolher o DSN configurado
+
+![Alt text](athena/configurando%20o%20dsn.PNG)
+
+3 – Escolher as tabelas desejadas
+
+![Alt text](athena/escolhendo%20as%20tabelas%20para%20serem%20utilizadas%20no%20power%20bi.PNG)
+
+![Alt text](athena/dados%20dispon%C3%ADveis%20para%20uso%20no%20power%20bi.PNG)
 
 ## Delta tables
 
